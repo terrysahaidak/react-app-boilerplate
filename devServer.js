@@ -2,6 +2,7 @@ import path  from 'path'
 import express from 'express'
 import webpack from 'webpack'
 import config from './webpack.config.dev'
+import { readFile } from 'mz/fs'
 
 const app = express()
 // app.use(express.static('static'))
