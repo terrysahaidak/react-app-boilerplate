@@ -1,3 +1,8 @@
 require('babel-register')
 require('babel-polyfill')
-require('./devServer')
+
+if (process.env.NODE_ENV === 'production') {
+  require('./ssr-server')
+} else {
+  require('./devServer')
+}
