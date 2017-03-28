@@ -16,32 +16,38 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new ExtractTextPlugin('style.css', {
-      publicPath: '/'
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: './app/index',
+        postcss: [ // <---- postcss configs go here under LoadOptionsPlugin({ options: { ??? } })
+          autoprefixer(), initial()
+        ]
+      }
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development')
       },
       __DEV__: true
     })
   ],
   resolve: {
-    root: path.join(__dirname, 'app')
+    modules: [
+      path.join(__dirname, 'app'),
+      'node_modules'
+    ]
   },
-  postcss: [autoprefixer(), initial()],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js)x?$/,
-        loaders: ['babel'],
-        include: path.join(__dirname)
+        use: 'babel-loader'
       },
       {
         test: /\.styl$/,
-        loaders: ['style-loader', 'css-loader', 'postcss-loader', 'stylus-loader']
+        use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'postcss-loader'}, {loader: 'stylus-loader'}]
       }
     ]
   }
