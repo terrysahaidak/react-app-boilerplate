@@ -8,7 +8,7 @@
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "node index.js",
-    "prod": "NEDE_ENV=production node index.js",
+    "prod": "NODE_ENV=production node index.js",
     "lint": "eslint app"
   },
   "repository": {
